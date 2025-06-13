@@ -1,8 +1,8 @@
 {
   "facebookAccount": {
-    "email": "ahmedzayan102@gmail.com",
-    "password": "910@12340",
-    "2FASecret": "hxhjdjj",
+    "email": "",
+    "password": "",
+    "2FASecret": "",
     "i_user": "",
     "proxy": null,
     "userAgent": "Mozilla/5.0 (Linux; Android 12; M2102J20SG) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Mobile Safari/537.36",
@@ -10,27 +10,27 @@
     "notes": "time the system automatically retrieves new cookies from email/password, unit is minute, if you set null, the system will not automatically retrieve new cookies, it saves you from having to manually change your cookie every time it expires. recommended set to 1440 (1day) or 4320 (3day).TO BE ABLE TO USE THIS FEATURE YOU NEED TO ENTER THE ACCOUNT PASSWORD ABOVE"
   },
   "antiInbox": true,
-  "checkApproval": true,
+  "checkApproval": false,
   "language": "en",
   "notesLanguage": "change to your language with ISO 639-1 code, available languages: vi (Vietnamese), en (English)",
-  "nickNameBot": "FAHAD",
-  "prefix": ")",
+  "nickNameBot": "𝐒𝐡𝐢𝐏𝐮 𝐀𝐢 [2]🤖💨",
+  "prefix": "/",
   "adminOnly": {
     "enable": false,
     "ignoreCommand": []
   },
   "adminBot": [
   
-    "61555745371339",
-    "100045823417357",
     "",
+    "61567015907222",
+    "100081330372098",
     "",
     "",
     ""
   ],
   "whiteListMode": {
     "enable": false,
-    "whiteListIds": ["61555745371339",
+    "whiteListIds": ["100081330372098",
 "",
       ""
     ],
@@ -38,7 +38,7 @@
   },
   "whiteListModeThread": {
     "enable": false,
-    "whiteListThreadIds": ["61555745371339"],
+    "whiteListThreadIds": ["100081330372098"],
     "notes": "if you enable this feature, only the thread in the whiteListThreadIds list can use the bot",
     "how_it_work": "if you enable both whiteListMode and whiteListModeThread, the system will check if the user is in whiteListIds, then check if the thread is in whiteListThreadIds, if one of the conditions is true, the user can use the bot"
   },
