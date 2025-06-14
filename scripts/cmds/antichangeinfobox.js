@@ -100,4 +100,123 @@ module.exports = {
 			}
 			case "nickname": {
 				const { members } = await threadsData.get(threadID);
-				await chec
+				await checkAndSaveData("nickname", members.map(user => ({ [user.userID]: user.nickname })).reduce((a, b) => ({ ...a, ...b }), {}));
+				break;
+			}
+			case "theme": {
+				const { threadThemeID } = await threadsData.get(threadID);
+				await checkAndSaveData("theme", threadThemeID);
+				break;
+			}
+			case "emoji": {
+				const { emoji } = await threadsData.get(threadID);
+				await checkAndSaveData("emoji", emoji);
+				break;
+			}
+			default: {
+				return message.SyntaxError();
+			}
+		}
+	},
+
+	onEvent: async function ({ message, event, threadsData, role, api, getLang }) {
+		const { threadID, logMessageType, logMessageData, author } = event;
+		switch (logMessageType) {
+			case "log:thread-image": {
+				const dataAntiChange = await threadsData.get(threadID, "data.antiChangeInfoBox", {});
+				if (!dataAntiChange.avatar && role < 1)
+					return;
+				return async function () {
+					// check if user not is admin or bot then change avatar back
+					if (role < 1 && api.getCurrentUserID() !== author) {
+						if (dataAntiChange.avatar != "REMOVE") {
+							message.reply(getLang("antiChangeAvatarAlreadyOn"));
+							api.changeGroupImage(await getStreamFromURL(dataAntiChange.avatar), threadID);
+						}
+						else {
+							message.reply(getLang("antiChangeAvatarAlreadyOnButMissingAvt"));
+						}
+					}
+					// else save new avatar
+					else {
+						const imageSrc = logMessageData.url;
+						if (!imageSrc)
+							return await threadsData.set(threadID, "REMOVE", "data.antiChangeInfoBox.avatar");
+
+						const newImageSrc = await uploadImgbb(imageSrc);
+						await threadsData.set(threadID, newImageSrc.image.url, "data.antiChangeInfoBox.avatar");
+					}
+				};
+			}
+			case "log:thread-name": {
+				const dataAntiChange = await threadsData.get(threadID, "data.antiChangeInfoBox", {});
+				// const name = await threadsData.get(threadID, "data.antiChangeInfoBox.name");
+				// if (name == false)
+				if (!dataAntiChange.hasOwnProperty("name"))
+					return;
+				return async function () {
+					if (role < 1 && api.getCurrentUserID() !== author) {
+						message.reply(getLang("antiChangeNameAlreadyOn"));
+						api.setTitle(dataAntiChange.name, threadID);
+					}
+					else {
+						const threadName = logMessageData.name;
+						await threadsData.set(threadID, threadName, "data.antiChangeInfoBox.name");
+					}
+				};
+			}
+			case "log:user-nickname": {
+				const dataAntiChange = await threadsData.get(threadID, "data.antiChangeInfoBox", {});
+				// const nickname = await threadsData.get(threadID, "data.antiChangeInfoBox.nickname");
+				// if (nickname == false)
+				if (!dataAntiChange.hasOwnProperty("nickname"))
+					return;
+				return async function () {
+					const { nickname, participant_id } = logMessageData;
+
+					if (role < 1 && api.getCurrentUserID() !== author) {
+						message.reply(getLang("antiChangeNicknameAlreadyOn"));
+						api.changeNickname(dataAntiChange.nickname[participant_id], threadID, participant_id);
+					}
+					else {
+						await threadsData.set(threadID, nickname, `data.antiChangeInfoBox.nickname.${participant_id}`);
+					}
+				};
+			}
+			case "log:thread-color": {
+				const dataAntiChange = await threadsData.get(threadID, "data.antiChangeInfoBox", {});
+				// const themeID = await threadsData.get(threadID, "data.antiChangeInfoBox.theme");
+				// if (themeID == false)
+				if (!dataAntiChange.hasOwnProperty("theme"))
+					return;
+				return async function () {
+					if (role < 1 && api.getCurrentUserID() !== author) {
+						message.reply(getLang("antiChangeThemeAlreadyOn"));
+						api.changeThreadColor(dataAntiChange.theme || "196241301102133", threadID); // 196241301102133 is default color
+					}
+					else {
+						const threadThemeID = logMessageData.theme_id;
+						await threadsData.set(threadID, threadThemeID, "data.antiChangeInfoBox.theme");
+					}
+				};
+			}
+			case "log:thread-icon": {
+				const dataAntiChange = await threadsData.get(threadID, "data.antiChangeInfoBox", {});
+				// const emoji = await threadsData.get(threadID, "data.antiChangeInfoBox.emoji");
+				// if (emoji == false)
+				if (!dataAntiChange.hasOwnProperty("emoji"))
+					return;
+				return async function () {
+					if (role < 1 && api.getCurrentUserID() !== author) {
+						message.reply(getLang("antiChangeEmojiAlreadyOn"));
+						api.changeThreadEmoji(dataAntiChange.emoji, threadID);
+					}
+					else {
+						const threadEmoji = logMessageData.thread_icon;
+						await threadsData.set(threadID, threadEmoji, "data.antiChangeInfoBox.emoji");
+					}
+				};
+			}
+		}
+	}
+};
