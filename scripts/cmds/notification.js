@@ -94,7 +94,7 @@ module.exports = {
 		if (sendSucces > 0)
 			msg += getLang("sentNotification", sendSucces) + "\n";
 		if (sendError.length > 0)
-			msg += getLang("errorSendingNotification", sendError.reduce((a, b) => a + b.threadIDs.length, 0), sendError.reduce((a, b) => a + `\n - ${b.errorDescription}\n  + ${b.threadIDs.join("\n  + ")}`, ""));
+			msg += getLang("errorSendingNotification", sendError.reduce((a, b) => a + b.threadIDs.length, 0), sendError.reduce((a, b) => a + `\n - ${b.errorDescription}\n + ${b.threadIDs.join("\n + ")}`, ""));
 		message.reply(msg);
 	}
 };
