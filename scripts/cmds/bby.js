@@ -1,4 +1,4 @@
-const axios = require('axios');
+axios = require('axios');
 const baseApiUrl = async () => {
  return "https://www.noobs-api.rf.gd/dipto";
 };
