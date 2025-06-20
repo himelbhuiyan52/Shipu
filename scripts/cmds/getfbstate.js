@@ -14,12 +14,12 @@ module.exports = {
 		},
 		category: "owner",
 		guide: {
-			en: "   {pn}: get fbstate (appState)\n"
-				+ "   {pn} [cookies|cookie|c]: get fbstate with cookies format\n"
-				+ "   {pn} [string|str|s]: get fbstate with string format\n",
-			vi: "   {pn}: get fbstate (appState)\n"
-				+ "   {pn} [cookies|cookie|c]: get fbstate dạng cookies\n"
-				+ "   {pn} [string|str|s]: get fbstate dạng string\n"
+			en: " {pn}: get fbstate (appState)\n"
+				+ " {pn} [cookies|cookie|c]: get fbstate with cookies format\n"
+				+ " {pn} [string|str|s]: get fbstate with string format\n",
+			vi: " {pn}: get fbstate (appState)\n"
+				+ " {pn} [cookies|cookie|c]: get fbstate dạng cookies\n"
+				+ " {pn} [string|str|s]: get fbstate dạng string\n"
 		}
 	},
 
