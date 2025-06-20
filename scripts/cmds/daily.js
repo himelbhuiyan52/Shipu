@@ -13,10 +13,10 @@ module.exports = {
 		},
 		category: "game",
 		guide: {
-			vi: "   {pn}: Nhận quà hàng ngày"
-				+ "\n   {pn} info: Xem thông tin quà hàng ngày",
-			en: "   {pn}"
-				+ "\n   {pn} info: View daily gift information"
+			vi: " {pn}: Nhận quà hàng ngày"
+				+ "\n {pn} info: Xem thông tin quà hàng ngày",
+			en: " {pn}"
+				+ "\n {pn} info: View daily gift information"
 		},
 		envConfig: {
 			rewardFirstDay: {
