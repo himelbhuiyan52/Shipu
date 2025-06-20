@@ -14,14 +14,14 @@ module.exports = {
 		},
 		category: "info",
 		guide: {
-			vi: "   {pn}: dùng để xem id facebook của bạn"
-				+ "\n   {pn} @tag: xem id facebook của những người được tag"
-				+ "\n   {pn} <link profile>: xem id facebook của link profile"
-				+ "\n   Phản hồi tin nhắn của người khác kèm lệnh để xem id facebook của họ",
-			en: "   {pn}: use to view your facebook user id"
-				+ "\n   {pn} @tag: view facebook user id of tagged people"
-				+ "\n   {pn} <profile link>: view facebook user id of profile link"
-				+ "\n   Reply to someone's message with the command to view their facebook user id"
+			vi: " {pn}: dùng để xem id facebook của bạn"
+				+ "\n {pn} @tag: xem id facebook của những người được tag"
+				+ "\n {pn} <link profile>: xem id facebook của link profile"
+				+ "\n Phản hồi tin nhắn của người khác kèm lệnh để xem id facebook của họ",
+			en: " {pn}: use to view your facebook user id"
+				+ "\n {pn} @tag: view facebook user id of tagged people"
+				+ "\n {pn} <profile link>: view facebook user id of profile link"
+				+ "\n Reply to someone's message with the command to view their facebook user id"
 		}
 	},
 
