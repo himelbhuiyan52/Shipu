@@ -11,8 +11,8 @@ module.exports = {
 		},
 		category: "box chat",
 		guide: {
-			vi: "   {pn} @tags: dùng để kick những người được tag",
-			en: "   {pn} @tags: use to kick members who are tagged"
+			vi: " {pn} @tags: dùng để kick những người được tag",
+			en: " {pn} @tags: use to kick members who are tagged"
 		}
 	},
 
