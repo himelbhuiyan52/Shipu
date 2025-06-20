@@ -13,8 +13,8 @@ module.exports = {
 		},
 		category: "Owner",
 		guide: {
-			vi: "   {pn}: Khởi động lại bot",
-			en: "   {pn}: Restart bot"
+			vi: " {pn}: Khởi động lại bot",
+			en: " {pn}: Restart bot"
 		}
 	},
 
