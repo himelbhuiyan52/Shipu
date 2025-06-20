@@ -14,8 +14,8 @@ module.exports = {
 		},
 		category: "contacts admin",
 		guide: {
-			vi: "   {pn} <tin nhắn>",
-			en: "   {pn} <message>"
+			vi: " {pn} <tin nhắn>",
+			en: " {pn} <message>"
 		}
 	},
 
