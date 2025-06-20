@@ -15,8 +15,8 @@ module.exports = {
 		},
 		category: "owner",
 		guide: {
-			en: "   {pn}",
-			vi: "   {pn}"
+			en: " {pn}",
+			vi: " {pn}"
 		}
 	},
 
