@@ -14,7 +14,7 @@ module.exports = {
 		},
 		category: "box chat",
 		guide: {
-			en: "   {pn} [link profile | uid]"
+			en: " {pn} [link profile | uid]"
 		}
 	},
 
@@ -134,7 +134,7 @@ module.exports = {
 		if (lengthUserWaitApproval)
 			msg += `${getLang("approve", lengthUserWaitApproval)}\n`;
 		if (lengthUserError)
-			msg += `${getLang("failedAdd", failed.reduce((a, b) => a + b.uids.length, 0))} ${failed.reduce((a, b) => a += `\n    + ${b.uids.join('\n       ')}: ${b.type}`, "")}`;
+			msg += `${getLang("failedAdd", failed.reduce((a, b) => a + b.uids.length, 0))} ${failed.reduce((a, b) => a += `\n + ${b.uids.join('\n ')}: ${b.type}`, "")}`;
 		await message.reply(msg);
 	}
 };
