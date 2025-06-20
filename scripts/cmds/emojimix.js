@@ -12,10 +12,10 @@ module.exports = {
 			en: "Mix 2 emoji together"
 		},
 		guide: {
-			vi: "   {pn} <emoji1> <emoji2>"
-				+ "\n   Ví dụ:  {pn} 🤣 🥰",
-			en: "   {pn} <emoji1> <emoji2>"
-				+ "\n   Example:  {pn} 🤣 🥰"
+			vi: " {pn} <emoji1> <emoji2>"
+				+ "\n Ví dụ: {pn} 🤣 🥰",
+			en: " {pn} <emoji1> <emoji2>"
+				+ "\n Example: {pn} 🤣 🥰"
 		},
 		category: "fun"
 	},
