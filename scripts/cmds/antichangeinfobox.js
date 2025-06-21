@@ -99,4 +99,5 @@ module.exports = {
 				break;
 			}
 			case "nickname": {
-				const { members } = await threadsData.get
+				const { members } = await threadsData.get(threadID);
+				await chec
