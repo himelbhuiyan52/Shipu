@@ -25,8 +25,8 @@ module.exports = {
 		},
 		category: "wiki",
 		guide: {
-			vi: "   {pn} <emoji>: Tìm nghĩa của emoji",
-			en: "   {pn} <emoji>: Find the meaning of emoji"
+			vi: " {pn} <emoji>: Tìm nghĩa của emoji",
+			en: " {pn} <emoji>: Find the meaning of emoji"
 		}
 	},
 
