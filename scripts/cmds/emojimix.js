@@ -1,77 +1,99 @@
 const axios = require("axios");
+const fs = require("fs");
+const path = require("path");
 
 module.exports = {
-	config: {
-		name: "emojimix",
-		version: "1.4",
-		author: "NTKhang",
-		countDown: 5,
-		role: 0,
-		description: {
-			vi: "Mix 2 emoji lại với nhau",
-			en: "Mix 2 emoji together"
-		},
-		guide: {
-			vi: " {pn} <emoji1> <emoji2>"
-				+ "\n Ví dụ: {pn} 🤣 🥰",
-			en: " {pn} <emoji1> <emoji2>"
-				+ "\n Example: {pn} 🤣 🥰"
-		},
-		category: "fun"
-	},
+ config: {
+ name: "emojimix",
+ version: "1.0",
+ author: "Chitron Bhattacharjee",
+ countDown: 10,
+ role: 0,
+ shortDescription: {
+ en: "Mix two emojis together"
+ },
+ longDescription: {
+ en: "Create a mashup of two emojis using Google's Emoji Kitchen"
+ },
+ category: "fun",
+ guide: {
+ en: "{pn} <emoji1> <emoji2>"
+ }
+ },
 
-	langs: {
-		vi: {
-			error: "Rất tiếc, emoji %1 và %2 không mix được",
-			success: "Emoji %1 và %2 mix được %3 ảnh"
-		},
-		en: {
-			error: "Sorry, emoji %1 and %2 can't mix",
-			success: "Emoji %1 and %2 mix %3 images"
-		}
-	},
+ langs: {
+ en: {
+ missingEmojis: "⚠️ Please provide two emojis to mix",
+ invalidEmojis: "❌ Couldn't find a mashup for these emojis",
+ tooManyRequests: "⏳ Too many requests, please try again later",
+ error: "⚠️ Failed to create emoji mix"
+ }
+ },
 
-	onStart: async function ({ message, args, getLang }) {
-		const readStream = [];
-		const emoji1 = args[0];
-		const emoji2 = args[1];
+ onStart: async function ({ message, args, getLang }) {
+ try {
+ if (args.length < 2) {
+ return message.reply(getLang("missingEmojis"));
+ }
 
-		if (!emoji1 || !emoji2)
-			return message.SyntaxError();
+ const emoji1 = args[0];
+ const emoji2 = args[1];
 
-		const generate1 = await generateEmojimix(emoji1, emoji2);
-		const generate2 = await generateEmojimix(emoji2, emoji1);
+ const code1 = Array.from(emoji1).map(c => c.codePointAt(0).toString(16)).join("-");
+ const code2 = Array.from(emoji2).map(c => c.codePointAt(0).toString(16)).join("-");
 
-		if (generate1)
-			readStream.push(generate1);
-		if (generate2)
-			readStream.push(generate2);
+ const dateStr = getDateString();
+ const url = `https://www.gstatic.com/android/keyboard/emojikitchen/${dateStr}/u${code1}/u${code1}_u${code2}.png`;
 
-		if (readStream.length == 0)
-			return message.reply(getLang("error", emoji1, emoji2));
+ const tempDir = path.join(__dirname, "temp");
+ if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir);
+ const tempFilePath = path.join(tempDir, `emojimix_${Date.now()}.png`);
 
-		message.reply({
-			body: getLang("success", emoji1, emoji2, readStream.length),
-			attachment: readStream
-		});
-	}
+ const response = await axios({
+ method: "GET",
+ url,
+ responseType: "stream",
+ headers: {
+ "User-Agent": "Mozilla/5.0"
+ }
+ }).catch(err => {
+ if (err.response?.status === 404) return null;
+ throw err;
+ });
+
+ if (!response) {
+ return message.reply(getLang("invalidEmojis"));
+ }
+
+ const writer = fs.createWriteStream(tempFilePath);
+ response.data.pipe(writer);
+
+ await new Promise((resolve, reject) => {
+ writer.on("finish", resolve);
+ writer.on("error", reject);
+ });
+
+ await message.reply({
+ attachment: fs.createReadStream(tempFilePath)
+ });
+
+ fs.unlinkSync(tempFilePath);
+
+ } catch (error) {
+ console.error("EmojiMix Error:", error);
+ if (error.response?.status === 429) {
+ return message.reply(getLang("tooManyRequests"));
+ }
+ return message.reply(getLang("error"));
+ }
+ }
 };
 
-
-
-async function generateEmojimix(emoji1, emoji2) {
-	try {
-		const { data: response } = await axios.get("https://goatbotserver.onrender.com/taoanhdep/emojimix", {
-			params: {
-				emoji1,
-				emoji2
-			},
-			responseType: "stream"
-		});
-		response.path = `emojimix${Date.now()}.png`;
-		return response;
-	}
-	catch (e) {
-		return null;
-	}
+// Helper function to get current date string for Google's Emoji Kitchen
+function getDateString() {
+ const now = new Date();
+ const year = now.getFullYear();
+ const month = String(now.getMonth() + 1).padStart(2, '0');
+ const day = String(now.getDate()).padStart(2, '0');
+ return `${year}${month}${day}`;
 }
