@@ -22,18 +22,18 @@
   
   "adminBot": [
     "100081330372098",
-    "61571627128610",
-    "61577856580511",
-    "61575872008312",
     "61577916956280",
-    "61576216673131"
+    "61575872008312",
+    "61576216673131",
+    "61571627128610",
+    "61577856580511"
   ],
   "whiteListMode": {
     "enable": false,
     "whiteListIds": [],
     "notes": "if you enable this feature, only the ids in the whiteListIds section can use the bot"
   },
-  "nickNameBot": "‌[#]×Chat Bot 💫",
+  "nickNameBot": "‌[#]×Chat Bot💫",
   "prefix": "#",
   "database": {
     "type": "mongodb",
